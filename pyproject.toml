@@ -1,0 +1,43 @@
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+skip-string-normalization = false
+skip-magic-trailing-comma = false
+preview = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+select = [
+  "E",
+  "F",
+  "I",
+  "B",
+  "UP",
+  "SIM",
+  "C4",
+]
+
+ignore = [
+  "E501",
+  "B008",
+  "B905",
+]
+
+fix = true
+
+exclude = [
+  ".venv",
+  "venv",
+  "__pycache__",
+  "migrations",
+  "node_modules",
+  "dist",
+  "build",
+]
+
+[tool.ruff.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+known-first-party = ["app"]
