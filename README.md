@@ -163,6 +163,28 @@ store/
 
 ## ▶️ Running the application
 
+### Install dependencies:
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv .env
+source .env/bin/activate
+```
+
+or
+
+```bash
+python3 -m venv .env
+source .env/bin/activate
+```
+
+Then install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
 ### For better production experience, try uvicorn:
 
 ```bash

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from app.modules.container import storeService
+from app.core.container import storeService
 from app.modules.store.domain.models.item import Item
 from app.modules.store.presentation.dto import CreateItemDTO, UpdateItemDTO
 from app.modules.store.presentation.response import (
