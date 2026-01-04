@@ -27,7 +27,6 @@ class StoreRepository(IStoreRepository):
         for i, item in enumerate(self.items):
             if item.id == item_id:
                 del self.items[i]
-                print("siema")
                 return True
 
         return False

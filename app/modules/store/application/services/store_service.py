@@ -7,14 +7,14 @@ from app.modules.store.presentation.dto import CreateItemDTO, UpdateItemDTO
 
 
 class StoreService(IStoreService):
-    def __init__(self, storeRepository: IStoreRepository) -> None:
+    def __init__(self, store_repository: IStoreRepository) -> None:
         """
         Initializes the StoreService with a repository implementation.
 
         :param storeRepository: Repository responsible for Item persistence.
         """
 
-        self.storeRepository: IStoreRepository = storeRepository
+        self.store_repository: IStoreRepository = store_repository
 
     def get_all_items(self) -> list[Item]:
         """
@@ -23,7 +23,7 @@ class StoreService(IStoreService):
         :return: List of Item domain objects.
         """
 
-        return self.storeRepository.get_all()
+        return self.store_repository.get_all()
 
     def get_item_by_id(self, item_id: int) -> Item:
         """
@@ -34,7 +34,7 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        item: Item | None = self.storeRepository.get_by_id(item_id)
+        item: Item | None = self.store_repository.get_by_id(item_id)
         if item:
             return item
 
@@ -54,7 +54,7 @@ class StoreService(IStoreService):
         """
 
         newItem: Item = Item(0, itemDto.name, itemDto.weight, itemDto.qty)
-        return self.storeRepository.create(newItem)
+        return self.store_repository.create(newItem)
 
     def delete_item(self, item_id: int) -> int:
         """
@@ -65,7 +65,7 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        result: bool = self.storeRepository.delete(item_id)
+        result: bool = self.store_repository.delete(item_id)
         if result:
             return item_id
 
@@ -87,7 +87,7 @@ class StoreService(IStoreService):
         """
 
         updatedItem: Item = Item(item_id, itemDto.name, itemDto.weight, itemDto.qty)
-        item: Item | None = self.storeRepository.update(updatedItem)
+        item: Item | None = self.store_repository.update(updatedItem)
 
         if item:
             return item
@@ -107,7 +107,7 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        item: Item | None = self.storeRepository.update_qty(item_id, qty)
+        item: Item | None = self.store_repository.update_qty(item_id, qty)
 
         if item:
             return item
