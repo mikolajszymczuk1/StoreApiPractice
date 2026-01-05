@@ -4,9 +4,6 @@ import subprocess
 
 import typer
 
-from app.core.container import Container
-from app.shared.domain.services.database.i_sqlite_database_service import ISQLiteDatabaseService
-
 cli = typer.Typer(help="CLI for managing the Store API application.")
 
 
@@ -42,23 +39,24 @@ def prepare_db() -> None:
     """
 
     async def _run() -> None:
-        DATABASE_PATH: Path = Path(__file__).parent.parent / "db" / "store_api.db"
-        DATABASE_URL: str = f"sqlite+aiosqlite:///{DATABASE_PATH}"
+        db_path: Path = Path(__file__).parent.parent / "db" / "store_api.db"
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+        db_path.touch(exist_ok=True)
 
-        # Initialize the dependency injection container
-        container = Container()
-        container.config.database.url.from_value(DATABASE_URL)
-        container.config.database.echo.from_value(True)
-        container.wire(packages=["app.modules"])
-
-        db: ISQLiteDatabaseService = container.db()
-        await db.init_models()
-        await db.dispose()
-
-        typer.echo("Database initialized successfully.")
-        typer.echo(f"Database path: {DATABASE_PATH}")
+        typer.echo("Created database successfully.")
+        typer.echo(f"Database path: {db_path}")
 
     asyncio.run(_run())
+
+
+@cli.command()
+def migrate() -> None:
+    """
+    Run all Alembic migrations to update the database schema.
+    """
+
+    subprocess.run(["alembic", "upgrade", "head"], check=True)
+    typer.echo("✅ Project ready (DB migrated)")
 
 
 if __name__ == "__main__":

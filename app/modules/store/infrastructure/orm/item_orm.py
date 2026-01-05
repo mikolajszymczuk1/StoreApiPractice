@@ -6,3 +6,4 @@ class Item(SQLModel, table=True):
     name: str
     weight: str
     qty: int
+    price: int

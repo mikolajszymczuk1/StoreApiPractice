@@ -3,12 +3,14 @@ class Item:
     _name: str
     _weight: str
     _qty: int
+    _price: int
 
-    def __init__(self, id: int, name: str, weight: str, qty: int) -> None:
+    def __init__(self, id: int, name: str, weight: str, qty: int, price: int) -> None:
         self._id = id
         self._name = name
         self._weight = weight
         self._qty = qty
+        self._price = price
 
     @property
     def id(self) -> int:
@@ -37,3 +39,11 @@ class Item:
     @qty.setter
     def qty(self, value: int) -> None:
         self._qty = value
+
+    @property
+    def price(self) -> int:
+        return self._price
+
+    @price.setter
+    def price(self, value: int) -> None:
+        self._price = value

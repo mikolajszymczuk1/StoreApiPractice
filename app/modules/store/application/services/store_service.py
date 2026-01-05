@@ -40,7 +40,7 @@ class StoreService(IStoreService):
 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="item_not_found")
 
-    async def create_item(self, itemDto: CreateItemDTO) -> Item:
+    async def create_item(self, item_dto: CreateItemDTO) -> Item:
         """
         Creates a new item based on the provided input data.
 
@@ -53,7 +53,7 @@ class StoreService(IStoreService):
         :return: Created Item domain object.
         """
 
-        newItem: Item = Item(0, itemDto.name, itemDto.weight, itemDto.qty)
+        newItem: Item = Item(0, item_dto.name, item_dto.weight, item_dto.qty, item_dto.price)
         return await self.store_repository.create(newItem)
 
     async def delete_item(self, item_id: int) -> int:
@@ -71,7 +71,7 @@ class StoreService(IStoreService):
 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="item_not_found")
 
-    async def update_item(self, item_id: int, itemDto: UpdateItemDTO) -> Item:
+    async def update_item(self, item_id: int, item_dto: UpdateItemDTO) -> Item:
         """
         Updates all properties of an existing item.
 
@@ -86,7 +86,9 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        updatedItem: Item = Item(item_id, itemDto.name, itemDto.weight, itemDto.qty)
+        updatedItem: Item = Item(
+            item_id, item_dto.name, item_dto.weight, item_dto.qty, item_dto.price
+        )
         item: Item | None = await self.store_repository.update_item(updatedItem)
 
         if item:

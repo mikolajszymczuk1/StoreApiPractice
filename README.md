@@ -20,7 +20,8 @@ Built with **FastAPI** and structured according to **DDD / Clean Architecture** 
   "id": 1,
   "name": "Item 1",
   "weight": "10kg",
-  "qty": 5
+  "qty": 5,
+  "price": 20
 }
 ```
 
@@ -70,7 +71,8 @@ GET /api/items/{item_id}
   "id": 1,
   "name": "Item 1",
   "weight": "10kg",
-  "qty": 5
+  "qty": 5,
+  "price": 20
 }
 ```
 
@@ -95,7 +97,8 @@ POST /api/items
 {
   "name": "New Item",
   "weight": "5kg",
-  "qty": 10
+  "qty": 10,
+  "price": 20
 }
 ```
 
@@ -120,7 +123,8 @@ PUT /api/items/{item_id}
 {
   "name": "Updated Item",
   "weight": "7kg",
-  "qty": 12
+  "qty": 12,
+  "price": 20
 }
 ```
 
@@ -150,6 +154,8 @@ DELETE /api/items/{item_id}
 ---
 
 ## 🧩 Architecture overview
+
+Single module structure example:
 
 ```
 store/
@@ -204,6 +210,7 @@ pip install -e .
 
 ```bash
 storeapi prepare-db
+storeapi migrate
 ```
 
 ## Run the application

@@ -6,5 +6,6 @@ class GetItemResponse(BaseModel):
     name: str
     weight: str
     qty: int
+    price: int
 
     model_config = ConfigDict(from_attributes=True)

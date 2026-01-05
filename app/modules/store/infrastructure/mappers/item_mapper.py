@@ -10,6 +10,7 @@ class ItemMapper:
             name=item_orm.name,
             weight=item_orm.weight,
             qty=item_orm.qty,
+            price=item_orm.price,
         )
 
     @staticmethod
@@ -19,4 +20,5 @@ class ItemMapper:
             name=item.name,
             weight=item.weight,
             qty=item.qty,
+            price=item.price,
         )

@@ -69,6 +69,7 @@ class StoreRepository(IStoreRepository):
             item_orm.name = item.name
             item_orm.weight = item.weight
             item_orm.qty = item.qty
+            item_orm.price = item.price
 
             session.add(item_orm)
             await session.flush()
