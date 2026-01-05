@@ -24,7 +24,7 @@ router = APIRouter(prefix="/items", tags=["Items"])
 async def get_items(
     store_service: IStoreService = Depends(Provide[Container.store_service]),
 ) -> list[Item]:
-    items: list[Item] = store_service.get_all_items()
+    items: list[Item] = await store_service.get_all_items()
     return items
 
 
@@ -36,7 +36,7 @@ async def get_items(
 async def get_item(
     item_id: int, store_service: IStoreService = Depends(Provide[Container.store_service])
 ) -> Item:
-    item: Item = store_service.get_item_by_id(item_id)
+    item: Item = await store_service.get_item_by_id(item_id)
     return item
 
 
@@ -49,7 +49,7 @@ async def create_item(
     item: CreateItemDTO,
     store_service: IStoreService = Depends(Provide[Container.store_service]),
 ) -> dict[str, int]:
-    created_item: Item = store_service.create_item(item)
+    created_item: Item = await store_service.create_item(item)
     return {"created_item_id": created_item.id}
 
 
@@ -62,7 +62,7 @@ async def delete_item(
     item_id: int,
     store_service: IStoreService = Depends(Provide[Container.store_service]),
 ) -> dict[str, int]:
-    deleted_item_id: int = store_service.delete_item(item_id)
+    deleted_item_id: int = await store_service.delete_item(item_id)
     return {"removed_item_id": deleted_item_id}
 
 
@@ -76,7 +76,7 @@ async def update_item(
     item: UpdateItemDTO,
     store_service: IStoreService = Depends(Provide[Container.store_service]),
 ) -> dict[str, int]:
-    updated_item: Item = store_service.update_item(item_id, item)
+    updated_item: Item = await store_service.update_item(item_id, item)
     return {"updated_item_id": updated_item.id}
 
 

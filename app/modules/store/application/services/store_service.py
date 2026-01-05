@@ -16,16 +16,16 @@ class StoreService(IStoreService):
 
         self.store_repository: IStoreRepository = store_repository
 
-    def get_all_items(self) -> list[Item]:
+    async def get_all_items(self) -> list[Item]:
         """
         Retrieves all items available in the store.
 
         :return: List of Item domain objects.
         """
 
-        return self.store_repository.get_all()
+        return await self.store_repository.get_all()
 
-    def get_item_by_id(self, item_id: int) -> Item:
+    async def get_item_by_id(self, item_id: int) -> Item:
         """
         Retrieves a single item by its unique identifier.
 
@@ -34,13 +34,13 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        item: Item | None = self.store_repository.get_by_id(item_id)
+        item: Item | None = await self.store_repository.get_by_id(item_id)
         if item:
             return item
 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="item_not_found")
 
-    def create_item(self, itemDto: CreateItemDTO) -> Item:
+    async def create_item(self, itemDto: CreateItemDTO) -> Item:
         """
         Creates a new item based on the provided input data.
 
@@ -54,9 +54,9 @@ class StoreService(IStoreService):
         """
 
         newItem: Item = Item(0, itemDto.name, itemDto.weight, itemDto.qty)
-        return self.store_repository.create(newItem)
+        return await self.store_repository.create(newItem)
 
-    def delete_item(self, item_id: int) -> int:
+    async def delete_item(self, item_id: int) -> int:
         """
         Deletes an existing item from the store.
 
@@ -65,13 +65,13 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        result: bool = self.store_repository.delete(item_id)
+        result: bool = await self.store_repository.delete_item(item_id)
         if result:
             return item_id
 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="item_not_found")
 
-    def update_item(self, item_id: int, itemDto: UpdateItemDTO) -> Item:
+    async def update_item(self, item_id: int, itemDto: UpdateItemDTO) -> Item:
         """
         Updates all properties of an existing item.
 
@@ -87,14 +87,14 @@ class StoreService(IStoreService):
         """
 
         updatedItem: Item = Item(item_id, itemDto.name, itemDto.weight, itemDto.qty)
-        item: Item | None = self.store_repository.update(updatedItem)
+        item: Item | None = await self.store_repository.update_item(updatedItem)
 
         if item:
             return item
 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="item_not_found")
 
-    def update_item_qty(self, item_id: int, qty: int) -> Item:
+    async def update_item_qty(self, item_id: int, qty: int) -> Item:
         """
         Updates only the quantity (qty) of an existing item.
 
@@ -107,7 +107,7 @@ class StoreService(IStoreService):
         :raises HTTPException: If the item does not exist.
         """
 
-        item: Item | None = self.store_repository.update_qty(item_id, qty)
+        item: Item | None = await self.store_repository.update_qty(item_id, qty)
 
         if item:
             return item
