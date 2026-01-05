@@ -161,11 +161,20 @@ store/
 
 ---
 
-## ▶️ Running the application
+## Setup project
 
-### Install dependencies:
+### Make sure you have `sqlite3` installed on your system
 
-Create and activate a virtual environment:
+On Ubuntu/Debian:
+
+```bash
+sudo apt update
+sudo apt install sqlite3
+```
+
+### Setup virtual environment and install dependencies:
+
+#### 1) Create and activate a virtual environment:
 
 ```bash
 python -m venv .env
@@ -179,20 +188,34 @@ python3 -m venv .env
 source .env/bin/activate
 ```
 
-Then install the required packages:
+#### 2) Then install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### For better production experience, try uvicorn:
+#### 3) Then initialize project:
 
 ```bash
-uvicorn app.main:app --reload
+pip install -e .
 ```
 
-### For standard FastAPI development, run:
+#### 4) Then initialize the database:
 
 ```bash
-fastapi dev app/main.py
+storeapi prepare-db
+```
+
+## Run the application
+
+### To start development server, run:
+
+```bash
+storeapi dev
+```
+
+### To start production server (`uvicorn`), run:
+
+```bash
+storeapi start
 ```
